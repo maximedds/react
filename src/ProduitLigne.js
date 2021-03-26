@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+
 
 
 export default class ProduitLigne extends React.Component {
@@ -7,29 +7,35 @@ export default class ProduitLigne extends React.Component {
         super(props);
 
     }
-    
+
     render() {
         let produit = this.props.produit;
         return (
+            <React.Fragment>
+                
+ 
+      <tbody>
+                <tr>
+                    <td>{produit.id_produit}</td>
+                    <td>{produit.nom}</td>
+                    <td>{produit.quantite}</td>
+                    <td>{produit.description}</td>
+                    <td><img className="image" src={produit.url_image}></img></td>
+                    <td>{produit.id_categorie}</td>
+                    <td>{produit.prix_actuel}</td>
 
-            <tr>
-                <td>{produit.id_produit}</td>
-                <td>{produit.nom}</td>
-                <td>{produit.quantite}</td>
-                <td>{produit.description}</td>
-                <td>{produit.url_image}</td>
-                <td>{produit.id_categorie}</td>
-                <td>{produit.prix_actuel}</td>
-                {/* <td>
-                    <Link to={this.props.match.url + '/1'}><button className="Afficher-Button" type="button">Afficher</button> </Link>
-                    <Link to={this.props.match.url + '/edit/1'}><button className="Modifier-Button" type="button">Modifier</button></Link>
-                    <button className="Delete-Button" onClick={() => this.delete(2)}> Supprimer </button>
-                </td> */}
+                    <td>
+                        <button className="Afficher-Button" type="button" onClick={() => {window.location.href = 'produits/' + (produit.id_produit)}}> Afficher</button>
+                        <button className="Modifier-Button" type="button" onClick={() => {window.location.href = 'produits/edit/' + (produit.id_produit)}}>Modifier</button>
+                        <button className="Delete-Button" onClick={() => this.props.deleteCallback((produit.id_produit))}> Supprimer </button>
+                    </td>
+                </tr>
+                
+      </tbody>
 
-                {/* <td><img src={/images/${produit.nom}.jpg} width="50" height="50" /></td> */}
+ 
 
-            </tr>
-
+            </React.Fragment>
         );
     }
 }

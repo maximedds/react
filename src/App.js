@@ -7,6 +7,7 @@ import Categories from './Categories';
 function App() {
   return (
     <div className="App">
+      
       <header className="App-header">
         <Link to="/produits">produits</Link>
         <Link to="/categories">cat</Link>
@@ -16,6 +17,8 @@ function App() {
         <Route path="/categories" component={Categories}/>
       </main>
     </div>
+
+    
   );
 }
 
