@@ -69,7 +69,7 @@ export default class ProduitFormulaireModif extends React.Component {
                         <input required="true" type="number" name="prix_actuel" value={this.state.produit.prix_actuel} /><label>Prix actuel :</label>
 
                     </div>
-                    <Link to="/produits" className="Valider" onClick={this.save}>
+                    <Link to="/produits" className="Valider" onClick={this.props.save}>
                         <span></span>
                         <span></span>
                         <span></span>
