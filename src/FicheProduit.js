@@ -19,7 +19,7 @@ export default class FicheProduit extends React.Component{
 
     render(){
         return (
-            <ul class="tilesWrap">
+            <ul className="tilesWrap">
             <li>
                 <h2>{this.state.produit.nom}</h2>
                 <h3>{this.state.produit.nom}</h3>

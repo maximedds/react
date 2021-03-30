@@ -1,5 +1,5 @@
 import React from 'react';
-import {Link, Route, Switch} from 'react-router-dom';
+import { Link, Route, Switch } from 'react-router-dom';
 import ProduitListe from './ProduitListe';
 
 
@@ -10,7 +10,7 @@ export default class ProduitDisplay extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            netWorkError:false,
+            netWorkError: false,
             startEditing: false,
             produit: {},
             produits: []
@@ -29,7 +29,7 @@ export default class ProduitDisplay extends React.Component {
                         this.state.produits.filter((produit) => produit.id_produit !== produitId)
                 }
             ))
-        }
+    }
     )
 
     cancel = () => {
@@ -40,7 +40,7 @@ export default class ProduitDisplay extends React.Component {
         if (!produit.id_produit) {
             //product.id = this.state.productId;
             fetch("http://localhost:8080/produits", {
-                method: "POST", 
+                method: "POST",
                 headers: { "Content-type": "application/json" },
                 body: JSON.stringify(produit)
 
@@ -70,23 +70,33 @@ export default class ProduitDisplay extends React.Component {
                         startEditing: false
                     }
                 )
-            )
+                )
         }
     }
 
     render() {
         return (
-          (this.state.networkError ? 
-            <p>Problème de connexion</p> :
-            <React.Fragment>
-                <Link to={this.props.match.url + '/create'} saveCallback={this.save}>
-                    <button className="Add-Button">Créer un produit</button>
-                </Link>
-                <ProduitListe produits={this.state.produits} deleteCallback={this.deleteProduit} />
-            </React.Fragment>
-          )
+            (this.state.networkError ?
+                <p>Problème de connexion</p> :
+                <React.Fragment>
+                    <Link to={this.props.match.url + '/create'} savecallback={this.save}>
+                        <button className="Add-Button">Créer un produit</button>
+                    </Link>
+                    <div className="row justify-content-center padding">
+                        <div className="col-md-8 ftco-animate fadeInUp ftco-animated">
+                            <form action="#" className="domain-form">
+                                <div className="form-group d-md-flex">
+                                    <input type="text" className="form-control px-4" placeholder="Rechercher un produit" />
+                                    <input type="submit" className="search-domain btn btn-primary px-5" value="GO!" />
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <ProduitListe produits={this.state.produits} deleteCallback={this.deleteProduit} />
+                </React.Fragment>
+            )
         );
-      }
+    }
 
     componentDidMount = () => {
         let promesse = fetch("http://localhost:8080/produits/");
@@ -97,9 +107,11 @@ export default class ProduitDisplay extends React.Component {
             console.log(res);
             this.setState({ produits: res })
         }).catch((err) => {
-                console.log(err)
-                this.setState({ netWorkError: true })
-            })
+            console.log(err)
+            this.setState({ netWorkError: true })
+        })
     }
+
 }
+
 

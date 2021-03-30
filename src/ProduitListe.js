@@ -18,7 +18,9 @@ export default class ProduitListe extends React.Component {
 		return (
             <React.Fragment>
                 <table>
+                
                     <caption><h1>Nos véhicules</h1></caption>
+                    
                     <tr>
                         <th>ID</th>
                         <th>Nom</th>

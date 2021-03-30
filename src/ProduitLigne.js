@@ -25,6 +25,7 @@ export default class ProduitLigne extends React.Component {
                     <td>{produit.prix_actuel}</td>
 
                     <td>
+                        
                         <button className="Afficher-Button" type="button" onClick={() => {window.location.href = 'produits/' + (produit.id_produit)}}> Afficher</button>
                         <button className="Modifier-Button" type="button" onClick={() => {window.location.href = 'produits/edit/' + (produit.id_produit)}}>Modifier</button>
                         <button className="Delete-Button" onClick={() => this.props.deleteCallback((produit.id_produit))}> Supprimer </button>

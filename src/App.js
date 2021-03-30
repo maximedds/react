@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 import {Link, Route} from 'react-router-dom';
 import Produits from './Produits';
@@ -11,6 +10,8 @@ function App() {
       <header className="App-header">
         <Link to="/produits">produits</Link>
         <Link to="/categories">cat</Link>
+        
+        
       </header>
       <main>
         <Route path="/produits" component={Produits}/>
