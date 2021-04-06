@@ -19,7 +19,7 @@ class ProduitService {
   }
 
   deleteProduit(produitId) {
-    return axios.put(API_URL + 'employe/produits/delete/' + produitId, 
+    return axios.delete(API_URL + 'employe/produits/delete/' + produitId, 
                 { headers: authHeader() });
   }
 }
