@@ -30,7 +30,7 @@ export default class ProduitFormulaire extends React.Component {
         evt.preventDefault();
 
         let produit = {
-            id_produit: this.state.produit.id_produit,
+            id_produit: this.state.produit.id_produit || null,
             nom: this.state.nom || this.state.produit.nom,
             quantite: this.state.quantite || this.state.produit.quantite,
             description: this.state.description || this.state.produit.description,
@@ -39,8 +39,8 @@ export default class ProduitFormulaire extends React.Component {
             prix_actuel: this.state.prix_actuel || this.state.produit.prix_actuel
         }
         console.log("produit : " + produit.nom);
-        // this.props.saveCallback(produit);
-        this.saveBdd(produit);
+         this.props.saveCallback(produit);
+        //this.saveBdd(produit);
     }
 
     //////////
@@ -77,10 +77,8 @@ export default class ProduitFormulaire extends React.Component {
         const edit = !!this.props.match.params.id;
         return (
             <div className="add-box">
-
-                <h2 style={edit ? {} : { display: 'none' }}>Modifier un produit</h2>
-                <h2 style={edit ? { display: 'none' } : {}}>Ajouter un produit</h2>
-
+                
+                <h2>{edit ? "Modifier produit" : "Ajouter produit"}</h2>
                 <form>
                     <div className="champ" style={edit ? {} : { display: 'none' }}>
                         <input name="id"
@@ -88,22 +86,22 @@ export default class ProduitFormulaire extends React.Component {
                             value={this.props.match.params.id} />
                     </div>
                     <div className="champ">
-                        <input required="true" type="text" name="nom" value={this.state.produit.nom} onChange={this.handleChange} /><label>nom :</label>
+                        <input required="true" name="nom" value={this.state.produit.nom} onChange={this.handleChange} /><label>Nom du véhicule :</label>
                     </div>
                     <div className="champ">
-                        <input required="true" type="number" name="quantite" value={this.state.produit.quantite} onChange={this.handleChange} /><label>  quantite :</label>
+                        <input required="true" name="quantite" value={this.state.produit.quantite} onChange={this.handleChange} /><label>Quantité en stock :</label>
                     </div>
                     <div className="champ">
-                        <input required="true" type="text" name="description" value={this.state.produit.description} onChange={this.handleChange} /> <label>   description : </label>
+                        <input required="true" name="description" value={this.state.produit.description} onChange={this.handleChange} /> <label>Description du véhicule :</label>
                     </div>
                     <div className="champ">
-                        <input required="true" type="text" name="url_image" value={this.state.produit.url_image} onChange={this.handleChange} /><label> url_image : </label>
+                        <input required="true" name="url_image" value={this.state.produit.url_image} onChange={this.handleChange} /><label>url de l'image :</label>
                     </div>
                     <div className="champ">
-                        <input required="true" type="number" name="id_categorie" value={this.state.produit.id_categorie} onChange={this.handleChange} /> <label> id_categorie :</label>
+                        <input required="true" name="id_categorie" value={this.state.produit.id_categorie} onChange={this.handleChange} /> <label>ID de la catégorie</label>
                     </div>
                     <div className="champ">
-                        <input required="true" type="number" name="prix_actuel" value={this.state.produit.prix_actuel} onChange={this.handleChange} /><label>Prix actuel :</label>
+                        <input required="true" name="prix_actuel" value={this.state.produit.prix_actuel} onChange={this.handleChange} /><label>Prix actuel :</label>
                     </div>
 
                     <a onClick={this.save}>
@@ -127,7 +125,7 @@ export default class ProduitFormulaire extends React.Component {
 
     componentDidMount() {
         const id = this.props.match.params.id;
-        fetch("http://localhost:8080/produits/" + id, {
+        fetch("http://localhost:8080/api/public/produits/" + id, {
             method: "GET"
         })
             .then((data) => data.json())
