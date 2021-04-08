@@ -15,7 +15,7 @@ class App extends React.Component{
     this.state = {
       currentUser : undefined,
       panier: [],//[{id: 1, nom: test, prixUnitaire: 10.50, quantité: 1}, {id: 5, nom: test5, prixUnitaire: 4.50, quantité: 3}]
-      panierCount : 0
+      panierCount : 0,
     }
   }
 
@@ -23,20 +23,20 @@ class App extends React.Component{
     this.setState({panierCount : this.state.panierCount+1})
     let newProduit = true;
 
-    this.state.panier.forEach(produit=>{
-      if(produit.id === produit.id){
+    this.state.panier.forEach(p=>{
+      if(p.id_produit === produit.id_produit){
         newProduit = false;
       }
     })
     this.setState((state)=>{
       if (newProduit) {
-        const lignePanier = {id: produit.id, nom: produit.nom, prix_actuel: produit.prix_actuel, quantite: quantite};
-        state.panier = [...state.panier, lignePanier];
+        const lignePanier = {id_produit: produit.id_produit, nom: produit.nom, prix_actuel: produit.prix_actuel, quantite: quantite};
+        //state.panier = [...state.panier, lignePanier];
         state.panier = state.panier.concat(lignePanier)
       }
       else{
         state.panier = state.panier.map((p)=>{
-          produit.quantite = produit.id === produit.id ? p.quantite+1 : p.quantite;
+          p.quantite = p.id_produit === produit.id_produit ? p.quantite+1 : p.quantite;
           return produit;
         })
       }
@@ -44,14 +44,24 @@ class App extends React.Component{
     })
   }
   deleteFromCart = (produitId)=>{
-    this.setState((state)=>state.panier = state.panier.filter((p)=>p.id !== produitId))
+    this.setState((state)=>state.panier = state.panier.filter((p)=>p.id_produit !== produitId))
   }
   editCartItem = (produitId, quantite)=>{
     this.setState((state)=>state.panier = state.panier.map((p)=> {
-        p.quantite = p.id === produitId ? quantite : p.quantite;
+        p.quantite = p.id_produit === produitId ? quantite : p.quantite;
         return p;
       }
     ))
+  }
+
+  passerCommande = (panier)=>{
+    if( this.state.panierCount > 0){
+      alert("commande effectuée");
+      this.props.history.push(`/produits?currentPage=0`);
+    }
+    else {
+      alert("Panier vide")
+    }
   }
 
   deleteAllFromCart = ()=>{
@@ -86,7 +96,7 @@ class App extends React.Component{
         <main>
           
           <Route path="/produits" render={(props)=> <Produits {...props} addToCart={this.addToCart} currentUser={this.state.currentUser} />}/>
-          <Route path="/panier" render={(props)=> <Panier {...props} panier={this.state.panier} deleteFromCart={this.deleteFromCart} editCartItem={this.editCartItem} deleteAllFromCart={this.deleteAllFromCart} />}/>
+          <Route path="/panier" render={(props)=> <Panier {...props} panier={this.state.panier} deleteFromCart={this.deleteFromCart} editCartItem={this.editCartItem} deleteAllFromCart={this.deleteAllFromCart} passerCommande={this.passerCommande}/>}/>
           <Route path="/categories" component={Categories}/>
           <Route path="/login" render={(props)=> <Login {...props} setCurrentUser={this.setCurrentUser} />}/>
           <Route path="/access_denied" component={AccessDenied}/>
