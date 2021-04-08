@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import ReactPaginate from 'react-paginate';
+import Tooltip from '@material-ui/core/Tooltip';
+import { makeStyles } from '@material-ui/core/styles';
 
 export default class ProduitListe extends React.Component {
     constructor(props) {
@@ -13,6 +15,14 @@ export default class ProduitListe extends React.Component {
             produits: []
         }
     }
+    
+     useStyles = makeStyles((theme) => ({
+        root: {
+          '& > *': {
+            margin: theme.spacing(1),
+          },
+        },
+      }));
 
     handlePageClick = ({selected}) =>{
         console.log(selected);
@@ -39,39 +49,45 @@ export default class ProduitListe extends React.Component {
                     activeClassName={"pagination__link--active"}
                     
                 />
-                <table>
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Nom</th>
-                            <th>Quantite</th>
-                            <th>Description</th>
-                            <th>Image</th>
-                            <th>Catégorie</th>
-                            <th>Prix</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
+                   
+
                         {this.props.produits.map((produit) => {
-                            return (<tr key={produit.id_produit}>
-                                <td>{produit.id_produit}</td>
-                                <td>{produit.nom}</td>
-                                <td>{produit.quantite}</td>
-                                <td>{produit.description}</td>
-                                <td><img className="image" src={produit.url_image}></img></td>
-                                <td>{produit.id_categorie}</td>
-                                <td>{produit.prix_actuel}</td>
-                                <td>
-                                    <Link to={this.props.match.url + '/'+produit.id_produit}>Afficher</Link>
-                                    <Link style={isEmploye ? {}: {display: "none" }} to={this.props.match.url + '/edit/'+produit.id_produit}>Modifier</Link>
-                                    <button style={isEmploye ? {}: {display: "none" }}  onClick={() => this.props.deleteCallback(produit.id_produit)}>Supprimer</button>
-                                    
-                                </td>
-                            </tr>)
+                            return ( 
+                            <section id="produits">
+                           <section>
+                            <img className="image" src={produit.url_image}></img>
+                                <div><ul className="produits">
+            <li>
+                                    <div><h2>{produit.nom} - {produit.prix_actuel}€</h2></div>
+                                    </li>
+                                    </ul>
+                                    <div>
+                                    {produit.description}
+                                    </div>
+                                    <div>
+                                    <div>
+     
+                                    </div>
+                                    <Tooltip title="AFFICHER PRODUIT" arrow>
+                                    <Link to={this.props.match.url + '/'+produit.id_produit}><button className="Afficher-Button" type="button">Afficher</button></Link>  
+                                    </Tooltip>
+                                    <Tooltip title="MODIFIER PRODUIT" arrow>
+                                    <Link style={isEmploye ? {}: {display: "none" }} to={this.props.match.url + '/edit/'+produit.id_produit}><button class="Modifier-Button">Modifier</button></Link>
+                                    </Tooltip>
+                                    <Tooltip title="SUPPRIMER PRODUIT" arrow>
+                                    <button className="Delete-Button" style={isEmploye?{}:{display:"none"}}onClick={()=>this.props.deleteCallback(produit.id_produit)}>Supprimer</button>
+                                    </Tooltip>
+                                    <Tooltip title="Ajouter au panier" arrow>
+                                    <button className="ajout-panier-Button" onClick={()=>this.props.addToCart(produit)}>Ajouter au panier</button>
+                                    </Tooltip>
+                                    </div>
+                                </div>
+                            </section>
+                            </section>)
                         })}
-                    </tbody>
-                </table>
+                   
+                   
+                
             </React.Fragment>
 
         )

@@ -26,8 +26,8 @@ export default class SearchBar extends React.Component {
       return (
         <div>
           <input type="text" name="searchWord" onChange={this.handleChange} value={this.state.searchWord}/>
-          <button onClick={this.search}>Rechercher</button>
-          <button onClick={this.annuler}>Annuler</button>
+          <button className="Rechercher-Button" onClick={this.search}>Rechercher</button>
+          <button className="Annuler-Button" onClick={this.annuler}>X</button>
         </div>)
     }
   }

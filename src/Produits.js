@@ -13,7 +13,7 @@ export default class Produits extends React.Component {
             produits: [],
             produitsCount: 0,
             currentPage: 0,
-            perPage: 10,
+            perPage: 4,
             pageCount: 1,
             searchWord: ""
 
@@ -186,7 +186,7 @@ export default class Produits extends React.Component {
         return (
             <React.Fragment>
                 <div className="App-header">
-                    {(isEmploye && <Link to={this.props.match.url + '/create'}>Créer un produit</Link>)}
+                    {(isEmploye && <Link to={this.props.match.url + '/create'}><button className="Add-Button">Créer un produit</button></Link>)}
                     <SearchBar searchCallback={this.search} annulerSearch={this.clearSearchWord} />
                 </div>
                 <Switch>
@@ -209,7 +209,8 @@ export default class Produits extends React.Component {
                             perPage={this.state.perPage}
                             pageCount={this.state.pageCount}
                             setCurrentPage={this.setCurrentPage}
-                            deleteCallback={this.deleteProduit} />
+                            deleteCallback={this.deleteProduit} 
+                            addToCart={this.props.addToCart}  />
                     } />
                 </Switch>
 

@@ -1,5 +1,7 @@
 import React from 'react';
-import './ProduitFormulaire.css';
+import './App.css';
+import AuthService from './AuthService';
+
 export default class ProduitFormulaire extends React.Component {
     constructor(props) {
         super(props);
@@ -124,6 +126,12 @@ export default class ProduitFormulaire extends React.Component {
     }
 
     componentDidMount() {
+        // vérifier l'autorisation
+        const currUser = AuthService.getCurrentUser();
+        const isEmploye = AuthService.isEmploye(currUser);
+        if (!isEmploye) {
+            this.props.history.push("/access_denied")
+        }
         const id = this.props.match.params.id;
         fetch("http://localhost:8080/api/public/produits/" + id, {
             method: "GET"

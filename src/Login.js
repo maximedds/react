@@ -96,13 +96,10 @@ export default class Login extends Component {
 
   render() {
     return (
+      
       <div className="col-md-12">
         <div className="card card-container">
-          <img
-            src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
-            alt="profile-img"
-            className="profile-img-card"
-          />
+          
 
           <Form
             onSubmit={this.handleLogin}
@@ -110,33 +107,34 @@ export default class Login extends Component {
               this.form = c;
             }}
           >
-            <div className="form-group">
-              <label htmlFor="username">Username</label>
-              <Input
+            <div class='bold-line'></div>
+<div class='container'>
+  <div class='window'>
+    <div class='overlay'></div>
+    <div class='content'>
+      <div class='welcome'>Bienvenue</div>
+      <div class='subtitle'>Merci de compléter les champs afin de vous identifier</div>
+      <div class='input-fields'>
+      <Input
                 type="text"
-                className="form-control"
+                className='input-line full-width'
                 name="username"
                 value={this.state.username}
                 onChange={this.onChangeUsername}
                 validations={[required]}
               />
-            </div>
-
-            <div className="form-group">
-              <label htmlFor="password">Password</label>
-              <Input
+         <Input
                 type="password"
-                className="form-control"
+                className='input-line full-width'
                 name="password"
                 value={this.state.password}
                 onChange={this.onChangePassword}
                 validations={[required]}
               />
-            </div>
 
-            <div className="form-group">
-              <button
-                className="btn btn-primary btn-block"
+      </div>
+      <div><button
+                className='ghost-round full-width'
                 disabled={this.state.loading}
               >
                 {this.state.loading && (
@@ -145,7 +143,11 @@ export default class Login extends Component {
                 <span>Login</span>
               </button>
             </div>
-
+            <img
+            src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
+            alt="profile-img"
+            className="profile-img-card"
+          />
             {this.state.message && (
               <div className="form-group">
                 <div className="alert alert-danger" role="alert">
@@ -158,7 +160,9 @@ export default class Login extends Component {
               ref={c => {
                 this.checkBtn = c;
               }}
-            />
+            /></div>
+    </div>
+  </div>
           </Form>
         </div>
       </div>
