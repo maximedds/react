@@ -55,13 +55,7 @@ class App extends React.Component{
   }
 
   passerCommande = (panier)=>{
-    if( this.state.panierCount > 0){
-      alert("commande effectuée");
-      this.props.history.push(`/produits?currentPage=0`);
-    }
-    else {
-      alert("Panier vide")
-    }
+    
   }
 
   deleteAllFromCart = ()=>{
